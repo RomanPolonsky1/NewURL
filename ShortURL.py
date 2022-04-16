@@ -2,10 +2,10 @@ from uuid import uuid4
 import sqlite3
 
 
-def create_short_url(url):
+def create_short_url(url, text=''):
     short_url = is_url_exist(url)
     if short_url is None:
-        return insert_new_url(url)
+        return insert_new_url(url, text)
     return short_url
 
 
@@ -25,12 +25,12 @@ def get_real_url(url):
     return None
 
 
-def insert_new_url(url):
+def insert_new_url(url, title=''):
     result = is_url_exist(url)
     if not result:
         connection = sqlite3.connect('test.db')
         new_url_prefix = uuid4().hex
-        connection.execute("INSERT INTO ShortURL VALUES (?, ?)", [url, new_url_prefix]);
+        connection.execute("INSERT INTO ShortURL VALUES (?, ?, ?)", [url, new_url_prefix, title]);
         connection.commit()
         connection.close()
         return url, new_url_prefix
