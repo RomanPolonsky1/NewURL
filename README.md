@@ -1,2 +1,2 @@
 # NewURL
-Provide url it return new url. Using new url it redirect to original url.
+Provide url, it will be return new url. Using new url it goto to original url.
