@@ -4,7 +4,8 @@ from wtforms import TextAreaField
 import ShortURL
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'our very hard to guess secretfir'
+app.config['SECRET_KEY'] = 'ask me do not as a farm okay'
+domain = 'www.setgot.com'
 
 @app.route('/')
 def index():
@@ -25,20 +26,11 @@ def sign_up():
         title = request.form['title']
         url = request.form['url']
 
-        print(title)
-        return "https://newfamily.me/" + ShortURL.create_short_url(url)[1]
-
-        # Validate form data
         if len(title) == 0 or len(url) == 0:
-            # Form data failed validation; try again
             error = "Please supply both title and url"
         else:
-            # Form data is valid; move along
-            return redirect(url_for('thank_you'), keys=title)
-
-    # Render the sign-up page
+            return "https://" + domain + "/" + ShortURL.create_short_url(url, title)[1]
     return render_template('sign-up.html', message=error)
-
 
 
 # Run the application
